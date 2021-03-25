@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "BbsEntryController@index");
+Route::post('/create', "BbsEntryController@create");
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
