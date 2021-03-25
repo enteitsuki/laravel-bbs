@@ -9,12 +9,24 @@ class BbsEntryController extends Controller
 {
     function index()
     {
-        //@TODO 投稿一覧画面を表示
-        dd(BbsEntry::all());
+        // $item_list = BbsEntry::all();
+
+        // 並び順を指定
+        $item_list = BbsEntry::orderBy("id", "desc")->get();
+        return view("bbs_entry_list", [
+            "item_list" => $item_list
+        ]);
     }
-    function create()
+    function create(Request $request)
     {
-        //@TODO 投稿処理を行う
-        echo "create";
+        $input = $request->only('author', 'title', 'body');
+
+        $entry = new BbsEntry();
+        $entry->author = $input["author"];
+        $entry->title = $input["title"];
+        $entry->body = $input["body"];
+        $entry->save();
+
+        return redirect('/');
     }
 }
